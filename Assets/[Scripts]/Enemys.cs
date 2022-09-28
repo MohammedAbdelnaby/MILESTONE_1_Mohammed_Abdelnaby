@@ -26,7 +26,8 @@ public class Enemys : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.LookAt(Player.transform);
+        transform.LookAt(Player.transform); // we rotate the rotationAngle 
+        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0.0f);
     }
 
     private void Update()
