@@ -47,16 +47,16 @@ public class Bullet : MonoBehaviour
         Destroy(BulletImpactNormal);
         Destroy(BulletImpactReverse);
         gameObject.SetActive(true);
-        transform.position = new Vector3(transform.position.x + 40.0f, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x + ReverseOffset.X, transform.position.y, transform.position.z);
         reverse = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Obstacle" && reverse != true)
+        if (reverse != true)
         {
             BulletImpactNormal = Instantiate(BulletImpactPrefab, transform.position, transform.rotation);
-            BulletImpactReverse = Instantiate(BulletImpactPrefab, new Vector3(transform.position.x + 40.0f, transform.position.y, transform.position.z), transform.rotation);
+            BulletImpactReverse = Instantiate(BulletImpactPrefab, new Vector3(transform.position.x + ReverseOffset.X, transform.position.y, transform.position.z), transform.rotation);
             ObstacleName = collision.gameObject.name;
             gameObject.SetActive(false);
         }

@@ -24,10 +24,12 @@ public class PlayerMovement : MonoBehaviour
 
     private int BulletCount = 0;
 
+    private Camera camera;
     private Vector2 turn;
     // Start is called before the first frame update
     void Start()
     {
+        camera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -35,23 +37,12 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         turn.x += Input.GetAxis("Mouse X");
-        transform.localRotation = Quaternion.Euler(-turn.y, turn.x * turnSpeed, 0);
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(Vector3.back * Time.deltaTime * speed);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(Vector3.left * Time.deltaTime * speed);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector3.right * Time.deltaTime * speed);
-        }
+        turn.y += Input.GetAxis("Mouse Y");
+        float x = Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
+        float z = Input.GetAxisRaw("Vertical") * speed * Time.deltaTime;
+        camera.transform.localRotation = Quaternion.Euler(Mathf.Clamp(-turn.y * turnSpeed, -45.0f, 45.0f), turn.x * turnSpeed, 0);
+        transform.localRotation = Quaternion.Euler(0.0f, turn.x * turnSpeed, 0);
+        transform.Translate(transform.right * x + transform.forward * z);
     }
 
     private void Update()
@@ -59,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && BulletAmount != 0 && ReverseTime != true)
         {
             BulletAmount--;
-            GameObject bullet = Instantiate(Bullet, SpawnPointBullet.transform.position, transform.rotation);
+            GameObject bullet = Instantiate(Bullet, SpawnPointBullet.transform.position, camera.transform.rotation);
             BulletManger.Instance.PlayerBullets = bullet;
             BulletCount++;
         }
@@ -67,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
         {
             for (int i = 0; i < BulletCount; i++)
             {
-                Debug.Log(i);
                 if (BulletManger.Instance.bullets[i] != null && !BulletManger.Instance.bullets[i].GetComponent<Bullet>().Reverse)
                 {
                     BulletManger.Instance.bullets[i].GetComponent<Bullet>().ReverseBullet();
@@ -80,12 +70,12 @@ public class PlayerMovement : MonoBehaviour
         {
             if (ReverseTime == true)
             {
-                transform.position = new Vector3(transform.position.x - 40.0f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x - ReverseOffset.X, transform.position.y, transform.position.z);
                 ReverseTime = false;
             }
             else
             {
-                transform.position = new Vector3(transform.position.x + 40.0f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x + ReverseOffset.X, transform.position.y, transform.position.z);
                 ReverseTime = true;
             }
 
