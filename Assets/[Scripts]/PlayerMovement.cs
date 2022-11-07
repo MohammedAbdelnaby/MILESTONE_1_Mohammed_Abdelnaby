@@ -36,6 +36,17 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Movement();
+    }
+
+    private void Update()
+    {
+        Fire();
+        Reverse();
+    }
+
+    private void Movement()
+    {
         turn.x += Input.GetAxis("Mouse X");
         turn.y += Input.GetAxis("Mouse Y");
         float x = Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
@@ -45,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(transform.right * x + transform.forward * z);
     }
 
-    private void Update()
+    void Fire()
     {
         if (Input.GetMouseButtonDown(0) && BulletAmount != 0 && ReverseTime != true)
         {
@@ -54,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             BulletManger.Instance.PlayerBullets = bullet;
             BulletCount++;
         }
-        else if (ReverseTime  && Input.GetMouseButtonDown(0))
+        else if (ReverseTime && Input.GetMouseButtonDown(0))
         {
             for (int i = 0; i < BulletCount; i++)
             {
@@ -65,7 +76,10 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
 
+    private void Reverse()
+    {
         if (Input.GetKeyUp(KeyCode.F))
         {
             if (ReverseTime == true)
@@ -78,8 +92,6 @@ public class PlayerMovement : MonoBehaviour
                 transform.position = new Vector3(transform.position.x + ReverseOffset.X, transform.position.y, transform.position.z);
                 ReverseTime = true;
             }
-
         }
-
     }
 }
