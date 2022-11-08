@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*TO DO LIST:
+ * Finish all the menus
+ * Finsih all the UIs
+ * maybe finish enemy animations
+ */
+
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
