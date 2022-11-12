@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 588749519224285269}
   m_Layer: 0
   m_Name: EnemyBullet
-  m_TagString: Untagged
+  m_TagString: EnemyBulet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -313,7 +313,7 @@ CapsuleCollider:
   m_Radius: 0.03141592
   m_Height: 0.27552724
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: -0.032014847}
+  m_Center: {x: 0, y: 0, z: 0.03}
 --- !u!54 &588749519224285269
 Rigidbody:
   m_ObjectHideFlags: 0

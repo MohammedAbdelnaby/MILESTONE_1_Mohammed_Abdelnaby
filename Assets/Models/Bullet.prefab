@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 588749519224285269}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -311,9 +311,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.03141592
-  m_Height: 0.20801507
+  m_Height: 0.2755272
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: -0.043090247}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &588749519224285269
 Rigidbody:
   m_ObjectHideFlags: 0

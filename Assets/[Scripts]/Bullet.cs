@@ -53,6 +53,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(this.gameObject);
+            return;
+        }
         if (reverse != true)
         {
             BulletImpactNormal = Instantiate(BulletImpactPrefab, transform.position, transform.rotation);
@@ -66,5 +71,4 @@ public class Bullet : MonoBehaviour
         }
 
     }
-
 }

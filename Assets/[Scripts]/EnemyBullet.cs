@@ -53,10 +53,10 @@ public class EnemyBullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Obstacle" && PlayerReveresed != true)
+        if (PlayerReveresed != true)
         {
             BulletImpactNormal = Instantiate(BulletImpactPrefab, transform.position, transform.rotation);
-            BulletImpactReverse = Instantiate(BulletImpactPrefab, new Vector3(transform.position.x + 40.0f, transform.position.y, transform.position.z), transform.rotation);
+            BulletImpactReverse = Instantiate(BulletImpactPrefab, new Vector3(transform.position.x + ReverseOffset.X, transform.position.y, transform.position.z), transform.rotation);
             ObstacleName = collision.gameObject.name;
             gameObject.SetActive(false);
         }

@@ -16,22 +16,24 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float turnSpeed = 5.0f;
 
+    public int Health;
 
     [SerializeField]
     private GameObject Bullet;
 
-    [SerializeField]
-    private int BulletAmount = 5;
+    public int BulletAmount = 5;
 
     [SerializeField]
     private GameObject SpawnPointBullet;
 
     private bool ReverseTime = false;
 
-    private int BulletCount = 0;
+    private int BulletCount;
 
     private Camera camera;
-    private Vector2 turn;
+
+    public Vector2 turn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     {
         turn.x += Input.GetAxis("Mouse X");
         turn.y += Input.GetAxis("Mouse Y");
+        turn.y = Mathf.Clamp(turn.y, -10.0f, 10.0f);
         float x = Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
         float z = Input.GetAxisRaw("Vertical") * speed * Time.deltaTime;
         camera.transform.localRotation = Quaternion.Euler(Mathf.Clamp(-turn.y * turnSpeed, -45.0f, 45.0f), turn.x * turnSpeed, 0);

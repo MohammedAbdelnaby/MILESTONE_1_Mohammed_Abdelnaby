@@ -673,6 +673,7 @@ GameObject:
   - component: {fileID: 450798071149138723}
   - component: {fileID: 1776374186}
   - component: {fileID: 1776374185}
+  - component: {fileID: 1094149987}
   m_Layer: 0
   m_Name: Characters
   m_TagString: Untagged
@@ -695,7 +696,7 @@ Transform:
   - {fileID: 450798071749121451}
   - {fileID: 450798071749121513}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &450798071758944837
 Animator:
@@ -760,10 +761,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  animator: {fileID: 0}
+  Fov: {fileID: 0}
+  Health: 0
   SpawnPointBullet: {fileID: 121366571}
   Bullet: {fileID: 8956740499012127973, guid: 59f1a211f688254438f5474cf17fcce6, type: 3}
-  blue: {fileID: 0}
-  orange: {fileID: 0}
+  blue: {fileID: 2100000, guid: d600e984ca0e5b54eb328177cf8617b8, type: 2}
+  orange: {fileID: 2100000, guid: 07c23de2807cf824a9d3213471ed3d13, type: 2}
+  body: {fileID: 450798071763076229}
+  hair: {fileID: 450798071751415623}
+--- !u!114 &1094149987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450798071749413269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3fe8d308be62724a8ff713905911766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 5
+  Angle: 51
+  PlayerRef: {fileID: 0}
+  TargetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  ObstructionMask:
+    serializedVersion: 2
+    m_Bits: 128
+  CanSeePlayer: 0
 --- !u!1 &450798071749413271
 GameObject:
   m_ObjectHideFlags: 0
