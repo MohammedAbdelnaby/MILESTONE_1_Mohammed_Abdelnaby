@@ -115,7 +115,7 @@ public class Enemys : MonoBehaviour
                 EnemyManger.Instance.enemys.Remove(this.gameObject);
                 Destroy(this.gameObject);
             }
-            Health--;
+            Health -= 25;
         }
     }
 }

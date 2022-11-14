@@ -1,12 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-/*TO DO LIST:
- * Finish all the menus
- * Finsih all the UIs
- * maybe finish enemy animations
- */
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -51,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Fire();
         Reverse();
+        DidWin();
+        UpdateHealth();
     }
 
     private void Movement()
@@ -84,6 +81,33 @@ public class PlayerMovement : MonoBehaviour
                     break;
                 }
             }
+        }
+    }
+
+    private void DidWin()
+    {
+        if (EnemyManger.Instance.enemys.Count <= 0)
+        {
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "Level_1":
+                    SceneManager.LoadScene("Level_2");
+                break;
+                case "Level_2":
+                    SceneManager.LoadScene("Win");
+                break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void UpdateHealth()
+    {
+        if (Health <= 0)
+        {
+            SceneManager.LoadScene("Load");
         }
     }
 
