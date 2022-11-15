@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyBullet : MonoBehaviour
 {
+    public float OffSet;
+
     [SerializeField]
     private float speed = 10.0f;
 
@@ -23,6 +26,11 @@ public class EnemyBullet : MonoBehaviour
         get { return PlayerReveresed; }
         set { PlayerReveresed = value; }
     }
+    private void Start()
+    {
+        OffSet = (SceneManager.GetActiveScene().name == "Level_1") ? 28.09f : 137.5f;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -53,18 +61,21 @@ public class EnemyBullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.name == "Player")
+        {
+            Destroy(this.gameObject);
+        }
         if (PlayerReveresed != true)
         {
             BulletImpactNormal = Instantiate(BulletImpactPrefab, transform.position, transform.rotation);
-            BulletImpactReverse = Instantiate(BulletImpactPrefab, new Vector3(transform.position.x + ReverseOffset.X, transform.position.y, transform.position.z), transform.rotation);
+            BulletImpactReverse = Instantiate(BulletImpactPrefab, new Vector3(transform.position.x + OffSet, transform.position.y, transform.position.z), transform.rotation);
             ObstacleName = collision.gameObject.name;
             gameObject.SetActive(false);
         }
         else if (PlayerReveresed == true && ObstacleName != collision.gameObject.name)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
-
     }
 
 }

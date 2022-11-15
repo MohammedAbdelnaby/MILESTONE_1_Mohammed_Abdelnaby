@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemys : MonoBehaviour
 {
+    public float OffSet;
 
     [SerializeField]
     private GameObject Player;
@@ -46,6 +48,7 @@ public class Enemys : MonoBehaviour
         animator = GetComponent<Animator>();
         Fov = GetComponent<FieldOfVeiw>();
         InvokeRepeating("Fire", 0.0f, 1.0f);
+        OffSet = (SceneManager.GetActiveScene().name == "Level_1") ? 28.09f : 137.5f;
     }
 
     // Update is called once per frame
@@ -68,14 +71,14 @@ public class Enemys : MonoBehaviour
             {
                 body.material = blue;
                 hair.material = blue;
-                transform.position = new Vector3(transform.position.x - ReverseOffset.X, transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x - OffSet, transform.position.y, transform.position.z);
                 ReverseTime = false;
             }
             else
             {
                 body.material = orange;
                 hair.material = orange;
-                transform.position = new Vector3(transform.position.x + ReverseOffset.X, transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x + OffSet, transform.position.y, transform.position.z);
                 ReverseTime = true;
             }
 
@@ -109,13 +112,12 @@ public class Enemys : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
-            Debug.Log(Health);
+            Health -= 1;
             if (Health <= 0)
             {
                 EnemyManger.Instance.enemys.Remove(this.gameObject);
                 Destroy(this.gameObject);
             }
-            Health -= 25;
         }
     }
 }

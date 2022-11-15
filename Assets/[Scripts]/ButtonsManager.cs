@@ -19,7 +19,7 @@ public class ButtonsManager : MonoBehaviour
     }
     public void ExitButton()
     {
-        
+        Application.Quit();
     }
     public void MainMenuButton()
     {

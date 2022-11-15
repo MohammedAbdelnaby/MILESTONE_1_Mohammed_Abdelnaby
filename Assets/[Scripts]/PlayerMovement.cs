@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float OffSet;
+
     [SerializeField]
     private float speed = 10.0f;
 
@@ -27,13 +30,14 @@ public class PlayerMovement : MonoBehaviour
 
     private Camera camera;
 
-    public Vector2 turn;
+    private Vector2 turn;
 
     // Start is called before the first frame update
     void Start()
     {
         camera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
+        OffSet = (SceneManager.GetActiveScene().name == "Level_1") ? 28.09f : 137.5f;
     }
 
     // Update is called once per frame
@@ -47,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
         Fire();
         Reverse();
         DidWin();
-        UpdateHealth();
     }
 
     private void Movement()
@@ -105,9 +108,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateHealth()
     {
-        if (Health <= 0)
+        if (Health <= 0.0f)
         {
-            SceneManager.LoadScene("Load");
+            SceneManager.LoadScene("Lose");
         }
     }
 
@@ -117,14 +120,29 @@ public class PlayerMovement : MonoBehaviour
         {
             if (ReverseTime == true)
             {
-                transform.position = new Vector3(transform.position.x - ReverseOffset.X, transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x - OffSet, transform.position.y, transform.position.z);
                 ReverseTime = false;
             }
             else
             {
-                transform.position = new Vector3(transform.position.x + ReverseOffset.X, transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x + OffSet, transform.position.y, transform.position.z);
                 ReverseTime = true;
             }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyBullet"))
+        {
+            UpdateHealth();
+            Health -= 25;
+        }
+
+        if (collision.gameObject.CompareTag("PlayerBullet"))
+        {
+            Destroy(collision.gameObject);
+            BulletAmount++;
         }
     }
 }

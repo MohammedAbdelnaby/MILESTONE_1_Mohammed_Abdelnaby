@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bullet : MonoBehaviour
 {
+    public float OffSet;
+
     [SerializeField]
     private float speed = 10.0f;
 
@@ -17,6 +20,11 @@ public class Bullet : MonoBehaviour
     private string ObstacleName;
 
     private bool reverse = false;
+
+    private void Start()
+    {
+        OffSet = (SceneManager.GetActiveScene().name == "Level_1") ? 28.09f : 137.5f;
+    }
 
     public bool Reverse
     {
@@ -47,21 +55,16 @@ public class Bullet : MonoBehaviour
         Destroy(BulletImpactNormal);
         Destroy(BulletImpactReverse);
         gameObject.SetActive(true);
-        transform.position = new Vector3(transform.position.x + ReverseOffset.X, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x + OffSet, transform.position.y, transform.position.z);
         reverse = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Destroy(this.gameObject);
-            return;
-        }
         if (reverse != true)
         {
             BulletImpactNormal = Instantiate(BulletImpactPrefab, transform.position, transform.rotation);
-            BulletImpactReverse = Instantiate(BulletImpactPrefab, new Vector3(transform.position.x + ReverseOffset.X, transform.position.y, transform.position.z), transform.rotation);
+            BulletImpactReverse = Instantiate(BulletImpactPrefab, new Vector3(transform.position.x + OffSet, transform.position.y, transform.position.z), transform.rotation);
             ObstacleName = collision.gameObject.name;
             gameObject.SetActive(false);
         }

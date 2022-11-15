@@ -760,10 +760,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1304169ebbc86f4394409099b2713ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OffSet: 0
   Player: {fileID: 0}
   animator: {fileID: 0}
   Fov: {fileID: 0}
-  Health: 0
+  Health: 3
   SpawnPointBullet: {fileID: 121366571}
   Bullet: {fileID: 8956740499012127973, guid: 59f1a211f688254438f5474cf17fcce6, type: 3}
   blue: {fileID: 2100000, guid: d600e984ca0e5b54eb328177cf8617b8, type: 2}
@@ -785,6 +786,7 @@ MonoBehaviour:
   Radius: 5
   Angle: 51
   PlayerRef: {fileID: 0}
+  OffSet: {x: 0, y: 0, z: 0}
   TargetMask:
     serializedVersion: 2
     m_Bits: 64
